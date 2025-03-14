@@ -1,0 +1,77 @@
+.App {
+  text-align: center;
+  max-width: 100vw;
+  max-height: 100vh;
+  /* height: 100vh; */
+}
+
+
+p {
+  font-family:'Courier New', Courier, monospace;
+  font-size: 1.875rem;
+}
+
+.typewriter::after {
+  content: "|";
+  display: inline-block;
+  margin-left: 5px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #101315;
+  height: var(--app-height, 100vh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.875rem;
+  color: white;
+  overflow: hidden;
+}
+
+input{
+  width:3.125rem;
+  height:3.125rem;
+  border-radius: 10%;
+  /* border-color: beige; */
+  color: white;
+  text-align:center;
+}
+
+.btnParent {
+  margin-top: 0px;
+  display: grid;
+  grid-template-columns: repeat (2,50%);
+  gap: 5px;
+  grid-auto-rows: minmax(50px, auto);
+  width: 17rem;
+}
+
+.btnReset{
+  grid-column: 1;
+  max-height: 3rem;
+  max-width: 7rem;
+  border-radius: 25px;
+  color: #101315;
+}
+
+.btnStats {
+  grid-column: 2;
+  max-height: 3rem;
+  max-width: 7rem;
+  border-radius: 25px;
+  color: #101315;
+}
