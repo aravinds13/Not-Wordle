@@ -10,7 +10,7 @@ const coreLogic = (guess, wordMap) => {
     })
 
     for(let i=0; i<5; i++){ // green pass
-      //if the letter is present in the map, it's a candidate for green or yellow
+      //if the letter is present in the map, it's a candidate for green
       if(tempMap.has(guess.charAt(i))){
         let arr = tempMap.get(guess.charAt(i));
         //if the index matches the indices in the array, it's a green
