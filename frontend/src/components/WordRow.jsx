@@ -61,7 +61,7 @@ const WordRow = (props) => {
             tabIndex={`${rowKey}+${i}`}
             onKeyDown={(e) => modifyWordArray(e, i)}
             onChange={() => {}}
-            maximumScale={1}
+            maximumscale={1}
           />
         </td>
       ))}

@@ -28,9 +28,9 @@ export default function AlertDialog(props) {
         resetGame();  // Reset only when "Let's go!" is clicked
     };
 
-    let title = won ? 'Hooray! 👏🏻' : 'Not your day, I guess 😕'
-    let text = won ? `You won!\nWord for the current session: ${word}.\nDo you wanna go another round?` : `Dang it! :/\nWord for the current session: ${word}\nBetter luck next time.\nDo you wanna try again?`
-
+    let title = won ? 'Bingo! 👏🏻' : 'Not your day, I guess 😕'
+    let textTop = won ? `You won!\n` : `Dang it! :/`
+    let textBottom = won ? `\nDo you wanna go another round?` : `\nBetter luck next time.\nDo you wanna try again?`
     return (
         <React.Fragment>
             <Dialog
@@ -44,7 +44,11 @@ export default function AlertDialog(props) {
                 </DialogTitle>
                 <DialogContent>
                   <Typography id="transition-modal-description" sx={{ mt: 2 }} component="pre">
-                    {text}
+                    {textTop}
+                    <span>
+                      Word for the current session: <b>{word}</b>
+                    </span>
+                    {textBottom}
                   </Typography>
                   <Typography id="transition-modal-stats" sx={{ mt: 2 }} component="pre">
                     {generateStatMatrix(won,wordList,index)}
