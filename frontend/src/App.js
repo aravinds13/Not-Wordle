@@ -32,7 +32,7 @@ function App() {
     document.body.style.overflow = "hidden"
     setWordList(defaultWordList);
     wordMap.current.clear();
-    axios.get(`/api/getRandomWord`)
+    axios.get(`/api/api/getRandomWord`)
       .then((res) => {
           console.log(res.data.word);
           setWordOfSession(res.data.word);

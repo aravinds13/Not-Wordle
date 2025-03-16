@@ -5,7 +5,7 @@ const {API_BASE_URI, BACKEND_PORT} = config;
 
 const checkValidity = async (word) => {
     try {
-      const response = await axios.get(`/api/checkValidity`, {
+      const response = await axios.get(`/api/api/checkValidity`, {
         params: {
           guessedWord: word
         }
