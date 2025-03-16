@@ -124,7 +124,7 @@ function App() {
 
         <header className="App-header">
 
-          <p className='typewriter'>Wordle</p>
+          <p className='typewriter'>!Wordle</p>
           <div className='btnParent'>
             <button className='btnReset' onClick={()=>resetGame()}>🔄 Reset Game</button>
             <button className='btnStats' disabled={!verdict.isDone} onClick={() => {
