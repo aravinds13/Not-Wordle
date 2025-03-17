@@ -4,7 +4,7 @@ import WordRow  from './components/WordRow';
 import axios from 'axios';
 
 import toast, { Toaster } from 'react-hot-toast';
-import defaultWordList from './helpers/defaultWordList';
+import stockValues from './helpers/stockValues';
 
 import AlertDialog from './components/AlertDialog'
 
@@ -14,9 +14,13 @@ import checkValidity from './helpers/checkValidity';
 
 import config from './helpers/config';
 
+import Keyboard from './components/Keyboard';
+
 
 
 function App() {
+
+  const {defaultWordList, defaultCharStatus} = stockValues;
 
   const [wordOfSession, setWordOfSession] = useState('');
   const [wordList, setWordList] = useState(defaultWordList);
@@ -25,8 +29,27 @@ function App() {
   const [showStats, setShowStats] = useState(false);
 
   const wordMap = useRef(new Map());
+  const [charStatus, setCharStatus] = useState(defaultCharStatus);
+
+  const [currentWord, updateCurrentWord] = useState('');
+  const [currentRow, updateCurrentRow] = useState(0);
 
   const {API_BASE_URI, BACKEND_PORT} = config;
+
+
+  const handleKeyPress = (key) => {
+    if(key === "Enter"){
+      if(currentWord.length===5){
+        updateWordList(currentRow,currentWord)
+      }
+    }
+    else if((/[A-Z]/).test(key)){
+      updateCurrentWord((prevState) => prevState.length<5 ? prevState+=key : prevState);
+    }
+    else if(key === "⌫"){
+      updateCurrentWord((prevState) => prevState.slice(0,-1));
+    }
+  }
 
   useEffect(()=>{
     document.body.style.overflow = "hidden"
@@ -34,7 +57,6 @@ function App() {
     wordMap.current.clear();
     axios.get(`${API_BASE_URI}:${BACKEND_PORT}/api/getRandomWord`)
       .then((res) => {
-          console.log(res.data.word);
           setWordOfSession(res.data.word);
           let wordArray = res.data.word.split('')
           for(let i=0; i<5;i++){
@@ -63,7 +85,10 @@ function App() {
       setWordOfSession('');  // Clear the current word
       setWordList(defaultWordList); // Reset the word list
       wordMap.current.clear(); // Ensure map resets properly
+      updateCurrentRow(0)
+      updateCurrentWord('')
       toggleReset((prevState) => !prevState); // Still toggle state to force re-render
+      setCharStatus(JSON.parse(JSON.stringify(defaultCharStatus)));
   }
 
   
@@ -71,17 +96,19 @@ function App() {
     let response = await checkValidity(newWord);
     const{isValid} = response;
     if(isValid){
-      let res = coreLogic(newWord, wordMap.current);
-      let {isRightAnswer, data} = res;
+      
+      let res = coreLogic(newWord, wordMap.current, charStatus);
+      let {isRightAnswer, data, charStatusLocal} = res;
 
+      setCharStatus(charStatusLocal);
       setWordList((prevWordList) =>
         prevWordList.map((wordObject, i) => {
-          if (i === index) {
+          if (i === currentRow) {
             return {
               ...data,
             };
-          } else if (i === index + 1 && !isRightAnswer) {
-            return { ...wordObject, status: new Array(5).fill('white'), isCurrentWord: true }; // Activate the next word
+          } else if (i === currentRow + 1 && !isRightAnswer) {
+            return { ...wordObject, status: new Array(5).fill('black'), isCurrentWord: true }; // Activate the next word
           }
           return wordObject;
         })
@@ -91,6 +118,10 @@ function App() {
       }
       else if(index === 5){
         setVerdict({isDone: true, won: false, index: index});
+      }
+      else{
+        updateCurrentRow((prevState) => prevState+=1)
+        updateCurrentWord((prevState) => '')
       }
     }
     else{
@@ -124,23 +155,26 @@ function App() {
 
         <header className="App-header">
 
-          <p className='typewriter'>!Wordle</p>
           <div className='btnParent'>
-            <button className='btnReset' onClick={()=>resetGame()}>🔄 Reset Game</button>
-            <button className='btnStats' disabled={!verdict.isDone} onClick={() => {
-                    setShowStats(true); // Open the modal manually
-                }}>📊 View Stats</button>
+            <div className='typewriter'>!Wordle</div>
+            <button className='btnReset' onClick={()=>resetGame()}>🔄 Reset</button>
+            {verdict.isDone && (
+              <button className='btnStats' disabled={!verdict.isDone} onClick={() => {
+                setShowStats(true); // Open the modal manually
+              }}>📊 Stats</button>
+            )}
 
           </div>
           <>
           <table>
             <tbody>
               {wordList.map((wordDetails,i) => (
-                <WordRow rowKey={i} wordDetails={wordDetails} updateWordList={updateWordList}/>
+                <WordRow rowKey={i} wordDetails={wordDetails} updateWordList={updateWordList} currentWord={currentWord}/>
               ))}
             </tbody>
           </table>
           </>
+          <Keyboard onKeyPress={handleKeyPress} charStatus={charStatus}/>
         </header>
       </div>
     </>
