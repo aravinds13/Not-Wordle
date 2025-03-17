@@ -55,7 +55,7 @@ function App() {
     document.body.style.overflow = "hidden"
     setWordList(defaultWordList);
     wordMap.current.clear();
-    axios.get(`/api/api/getRandomWord`)
+    axios.get(`${API_BASE_URI}:${BACKEND_PORT}/api/getRandomWord`)
       .then((res) => {
           setWordOfSession(res.data.word);
           let wordArray = res.data.word.split('')
