@@ -11,7 +11,7 @@ const wordsLength = wordSet.size;
 const PORT = 3001;
 
 app.use(cors({
-    origin: '*',  // Allow requests from any domain (TEMPORARY for testing)
+    origin: '*',
     methods: 'GET'
   }));
 app.use(express.json());
