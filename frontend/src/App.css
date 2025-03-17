@@ -43,15 +43,19 @@ p {
 }
 
 input{
-  width:3.125rem;
-  height:3.125rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 10%;
-  /* border-color: beige; */
   color: white;
   text-align:center;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: 2rem;
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
+  /* max-width: 40px; */
+  /* max-height: 40px; */
 }
+
 
 .btnParent {
   margin-top: 0px;
@@ -60,6 +64,7 @@ input{
   gap: 5px;
   grid-auto-rows: minmax(50px, auto);
   width: 17rem;
+  margin-bottom: 10px;
 }
 
 .btnReset{
@@ -76,4 +81,8 @@ input{
   max-width: 7rem;
   border-radius: 25px;
   color: #101315;
+}
+button:disabled {
+  opacity: 0.5; /* Make it visually grayed out */
+  cursor: not-allowed;
 }

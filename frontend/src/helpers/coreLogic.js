@@ -33,7 +33,7 @@ const coreLogic = (guess, wordMap) => {
     else{
         for(let i=0; i<5; i++){ // yellow pass
             //if the letter is present in the map, it's a yellow since we already filtered out the greens
-            if(tempMap.has(guess.charAt(i))){
+            if(tempMap.has(guess.charAt(i)) && statusArray[i] !== '#2c9425'){
                 let arr = tempMap.get(guess.charAt(i));
                 arr.pop();
                 if(arr.length === 0){

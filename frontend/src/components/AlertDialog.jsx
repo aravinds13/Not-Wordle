@@ -29,7 +29,7 @@ export default function AlertDialog(props) {
     };
 
     let title = won ? 'Bingo! 👏🏻' : 'Not your day, I guess 😕'
-    let textTop = won ? `You won!\n` : `Dang it! :/`
+    let textTop = won ? `You won!\n` : `Dang it! :/\n`
     let textBottom = won ? `\nDo you wanna go another round?` : `\nBetter luck next time.\nDo you wanna try again?`
     return (
         <React.Fragment>
