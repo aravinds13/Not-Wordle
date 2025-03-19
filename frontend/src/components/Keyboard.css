@@ -1,0 +1,39 @@
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  
+  .keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .key {
+    width: 2rem;
+    height: 3rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    /* background-color: #444; */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+  }
+  
+  .key:active {
+    background-color: #666;
+  }
+  
+  .wide-key {
+    width: 3.5rem;
+  }
+  

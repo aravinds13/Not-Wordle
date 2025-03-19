@@ -1,10 +1,12 @@
-const coreLogic = (guess, wordMap) => {
+const coreLogic = (guess, wordMap, charStatus) => {
     let statusArray = new Array(5).fill('');
     let greenCounter = 0;
     let isRightAnswer = false;
-  
+
     let tempMap = new Map();
 
+    let charStatusLocal = charStatus;
+    
     wordMap.forEach((value, key) =>{
         tempMap.set(key,[...value]);
     })
@@ -16,6 +18,7 @@ const coreLogic = (guess, wordMap) => {
         //if the index matches the indices in the array, it's a green
         if(arr.includes(i)){
             statusArray[i] = '#2c9425'; //green
+            charStatusLocal[guess.charAt(i)] = '#2c9425';
             greenCounter++;
             arr.splice(guess.charAt(i),1);
             if(arr.length === 0){
@@ -43,9 +46,15 @@ const coreLogic = (guess, wordMap) => {
                     tempMap.set(guess.charAt(i), [...arr])
                 }
                 statusArray[i] = '#b4a03b'; //yellow
+                if(charStatusLocal[guess.charAt(i)] !== '#2c9425'){
+                  charStatusLocal[guess.charAt(i)] = '#b4a03b';
+                }
             }
             else if (statusArray[i] !== '#2c9425'){ //if it's not yellow and green is not already assigned, it's a gray
                 statusArray[i] = '#808080'; //grey
+                if(charStatusLocal[guess.charAt(i)] !== '#2c9425'){
+                  charStatusLocal[guess.charAt(i)] = '#808080';
+                }
             }
         }
     }
@@ -57,7 +66,7 @@ const coreLogic = (guess, wordMap) => {
         'status': statusArray,
       }
   
-    return {isRightAnswer: isRightAnswer, data}
+    return {isRightAnswer: isRightAnswer, data, charStatusLocal}
   }
 
 export default coreLogic;

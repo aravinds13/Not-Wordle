@@ -56,7 +56,7 @@ export default function AlertDialog(props) {
                 </DialogContent>
                 <DialogActions>
                 <Button onClick={handleNoClose}>Nah</Button>
-                <Button onClick={handleYesClose} autoFocus>
+                <Button onClick={handleYesClose}>
                     Let's go!
                 </Button>
                 </DialogActions>
