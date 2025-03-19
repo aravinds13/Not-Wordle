@@ -52,7 +52,7 @@ const coreLogic = (guess, wordMap, charStatus) => {
             }
             else if (statusArray[i] !== '#2c9425'){ //if it's not yellow and green is not already assigned, it's a gray
                 statusArray[i] = '#808080'; //grey
-                if(charStatusLocal[guess.charAt(i)] !== '#2c9425'){
+                if(charStatusLocal[guess.charAt(i)] !== '#b4a03b'){
                   charStatusLocal[guess.charAt(i)] = '#808080';
                 }
             }
