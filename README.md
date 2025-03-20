@@ -8,3 +8,6 @@ http://3.132.5.214/
 Known issues:
 - The UI tends to be cut off when used in landscape mode in mobile devices.
 - If the backend fails, the app just says that the word you guessed isn't valid 😅
+
+Possible TODO:
+- Add different game modes
