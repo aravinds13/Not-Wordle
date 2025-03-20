@@ -29,7 +29,7 @@ function App() {
   const [showStats, setShowStats] = useState(false);
 
   const wordMap = useRef(new Map());
-  const [charStatus, setCharStatus] = useState(defaultCharStatus);
+  const [charStatus, setCharStatus] = useState({...defaultCharStatus});
 
   const [currentWord, updateCurrentWord] = useState('');
   const [currentRow, updateCurrentRow] = useState(0);
@@ -88,7 +88,7 @@ function App() {
       updateCurrentRow(0)
       updateCurrentWord('')
       toggleReset((prevState) => !prevState); // Still toggle state to force re-render
-      setCharStatus(JSON.parse(JSON.stringify(defaultCharStatus)));
+      setCharStatus({...defaultCharStatus}); 
   }
 
   
